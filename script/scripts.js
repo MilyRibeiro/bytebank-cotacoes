@@ -1,4 +1,4 @@
-import imprimeCotacao from "./imprimeCotacao.js";
+import selecionaCotacao from "./imprimeCotacao.js";
 
 const graficoDolar = document.getElementById('graficoDolar');
 const graficoParaDolar = new Chart(graficoDolar, {
@@ -48,6 +48,31 @@ workerDolar.postMessage('usd');
 workerDolar.addEventListener("message", evento => {
   let tempo = geraHorario();
   let valor = evento.data.ask;
-  imprimeCotacao("dolar", valor);
+  // imprimeCotacao("dolar", valor);
+  selecionaCotacao("dolar", valor);
   adicionarDados(graficoParaDolar, tempo, valor);
+});
+
+// Gráfico para o Iene:
+const graficoIene = document.getElementById('graficoIene');
+const graficoParaIene = new Chart(graficoIene, {
+  type: 'line',
+  data: {
+    labels: [],
+    datasets: [{
+      label: 'Iene',
+      data: [],
+      borderWidth: 1
+    }]
+  }
+});
+
+let workerIene = new Worker('./script/workers/workerIene.js');
+workerIene.postMessage("iene");
+workerIene.addEventListener("message", evento => {
+  let tempo = geraHorario();
+  let valor = evento.data.ask;
+  adicionarDados(graficoParaIene, tempo, valor);
+  // imprimeCotacao("iene", valor);
+  selecionaCotacao("iene", valor);
 });
