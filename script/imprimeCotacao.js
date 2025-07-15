@@ -12,7 +12,10 @@ function imprimeCotacao(lista, nome, valor) {
   lista.innerHTML = '';
   const plurais = {
     "dolar": "dolares",
-    "iene": "ienes"
+    "iene": "ienes",
+    "won": "wons",
+    "euro": "euros",
+    "libra": "libras"
   };
 
   for (let multiplicador = 1; multiplicador <= 1000; multiplicador *= 10) {

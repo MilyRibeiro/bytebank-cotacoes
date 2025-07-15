@@ -8,7 +8,8 @@ const graficoParaDolar = new Chart(graficoDolar, {
     datasets: [{
       label: 'Dólar',
       data: [],
-      borderWidth: 1
+      borderWidth: 1,
+      borderColor: 'rgb(60, 179, 113)'
     }]
   },
 });
@@ -29,7 +30,7 @@ function geraHorario() {
   let data = new Date();
   let horario = data.getHours() + ":" + data.getMinutes() + ":" + data.getSeconds();
   // console.log(data);
-  console.log(horario);
+  // console.log(horario);
   return horario;
 };
 
@@ -42,6 +43,7 @@ function adicionarDados(grafico, legenda, dados) {
   grafico.update();
 };
 
+// Gráfico para o Dólar:
 let workerDolar = new Worker('./script/workers/workerDolar.js');
 workerDolar.postMessage('usd');
 
@@ -75,4 +77,83 @@ workerIene.addEventListener("message", evento => {
   adicionarDados(graficoParaIene, tempo, valor);
   // imprimeCotacao("iene", valor);
   selecionaCotacao("iene", valor);
+});
+
+// Gráfico para o Won:
+const graficoWon = document.getElementById('graficoWon');
+const graficoParaWon = new Chart(graficoWon, {
+  type: 'line',
+  data: {
+    labels: [],
+    datasets: [{
+      label: 'Won',
+      data: [],
+      borderWidth: 1,
+      fill: false,
+      borderColor: 'rgb(199, 21, 133)'
+    }]
+  }
+});
+
+let workerWon = new Worker('./script/workers/workerWon.js');
+workerWon.postMessage('won');
+
+workerWon.addEventListener("message", evento => {
+  let tempo = geraHorario();
+  let valor = evento.data.ask;
+  adicionarDados(graficoParaWon, tempo, valor);
+  selecionaCotacao("won", valor);
+});
+
+
+// Gráfico para o Euro:
+const graficoEuro = document.getElementById('graficoEuro');
+const graficoParaEuro = new Chart(graficoEuro, {
+  type: 'line',
+  data: {
+    labels: [],
+    datasets: [{
+      label: 'Euro',
+      data: [],
+      borderWidth: 1,
+      fill: false,
+      borderColor: 'rgb(75, 100, 192)',
+    }]
+  }
+});
+
+let workerEuro = new Worker('./script/workers/workerEuro.js');
+workerEuro.postMessage('euro');
+
+workerEuro.addEventListener("message", evento => {
+  let tempo = geraHorario();
+  let valor = evento.data.ask;
+  adicionarDados(graficoParaEuro, tempo, valor);
+  selecionaCotacao("euro", valor);
+});
+
+// Gráfico para o Libra:
+const graficoLibra = document.getElementById('graficoLibraEsterlina');
+const graficoParaLibra = new Chart(graficoLibra, {
+  type: 'line',
+  data: {
+    labels: [],
+    datasets: [{
+      label: 'Libra',
+      data: [],
+      borderWidth: 1,
+      fill: false,
+      borderColor: 'rgb(0, 206, 209)',
+    }]
+  }
+});
+
+let workerLibra = new Worker('./script/workers/workerLibra.js');
+workerLibra.postMessage('libra');
+
+workerLibra.addEventListener("message", evento => {
+  let tempo = geraHorario();
+  let valor = evento.data.ask;
+  adicionarDados(graficoParaLibra, tempo, valor);
+  selecionaCotacao("libra", valor);
 });

@@ -1,5 +1,9 @@
 .dadosDolar,
-.dadosIene {
+.dadosIene,
+.dadosWon,
+.dadosLibra,
+.dadosEuro,
+.dadosLibraEsterlina {
     margin: 3em auto;
     padding: 2em;
     display: flex;
@@ -31,6 +35,22 @@
 
 .grafico__ilustracao-iene {
     background-image: url('../imagens/iene.png');
+}
+
+span.grafico__ilustracao-euro {
+    background-image: url('../imagens/euro-icone.png');
+}
+
+.grafico__ilustracao-libra-esterlina {
+    background-image: url('../imagens/libra-esterlina.png');
+}
+
+.grafico__ilustracao-libra {
+    background-image: url('../imagens/libra-icone.png');
+}
+
+.grafico__ilustracao-won {
+    background-image: url('../imagens/won-icone.png');
 }
 
 .grafico__titulo h2 {
